@@ -1,6 +1,8 @@
 # face-detection-node-opencv
 
-Real-time face detection using OpenCV, Node.js, and WebSockets.
+Forked from [drejkim](https://github.com/drejkim/face-detection-node-opencv)
+
+Real-time face detection using OpenCV, Node.js, WebSockets and ngrok.
 
 Click [here](http://youtu.be/v2SY0naPBFw) to see it in action.
 
@@ -13,13 +15,13 @@ Click [here](http://youtu.be/v2SY0naPBFw) to see it in action.
 
 ## Installing Node.js packages
 
-* Navigate to the `server` directory
+* Navigate to the `project_root` directory
 * To install the packages: `npm install`
 
 ## Running the demo
 
-* Make sure you are still in the `server` directory
-* To run the server: `node server.js`
-* To run the demo locally, open a browser and go to `localhost:8080`
+* Make sure you are still in the `project_root` directory
+* To run the server: `node server.js` then you will get the `ngrokURL` in terminal
+* To run the demo, open a browser and go to `ngrokURL`
 
 The app should be up and running!
