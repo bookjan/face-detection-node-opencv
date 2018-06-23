@@ -5,11 +5,11 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "4.10.1",
-    "morgan": "1.4.1",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
     "ngrok": "^3.0.1",
     "opencv": "git+https://github.com/peterbraden/node-opencv.git",
     "pug": "^2.0.3",
-    "socket.io": "1.2.1"
+    "socket.io": "^2.1.1"
   }
 }

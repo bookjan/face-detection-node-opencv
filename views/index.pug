@@ -1,7 +1,8 @@
 doctype html
 html
   head
-    meta(name='viewport', content='initial-scale=1')
+    meta(http-equiv="Content-Security-Policy", content="default-src data: gap://* file://* https://ssl.gstatic.com *; img-src 'self' * data:; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-eval' 'unsafe-inline' *; connect-src 'self' * ws://* wss://*;")
+    meta(name="viewport", content='width=device-width, initial-scale=1, user-scalable=1')
     title #{title}
     style(type='text/css').
       .container {
@@ -11,16 +12,16 @@ html
       text-align: center;
       }
       #canvas-video {
-      width: 640px;
-      height: 480px;
+      width: 320px;
+      height: 240px;
       border: 1px solid #ccc;
       }
   body
     .container.center
-      canvas#canvas-video(width='640', height='480')
+      canvas#canvas-video(width='320', height='240')
     
     block scripts
-      script(src="https://cdn.socket.io/socket.io-1.2.1.js")
+      script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js")
       script(type='text/javascript').
         // MODIFY THIS TO THE APPROPRIATE URL IF IT IS NOT BEING RUN LOCALLY
         var socket = io.connect('!{url}');
@@ -31,10 +32,16 @@ html
         context.fillStyle = '#333';
         context.fillText('Loading...', canvas.width/2-30, canvas.height/3);
         socket.on('frame', function (data) {
-        // Reference: http://stackoverflow.com/questions/24107378/socket-io-began-to-support-binary-stream-from-1-0-is-there-a-complete-example-e/24124966#24124966
-        var uint8Arr = new Uint8Array(data.buffer);
-        var str = String.fromCharCode.apply(null, uint8Arr);
-        var base64String = btoa(str);
+        
+        // Reference: http://stackoverflow.com/questions/24107378/socket-io-began-to-support-binary-stream-from-1-0-is-there-a-complete-example-e/24124966#24124966     
+        var binary = '';
+        var bytes = new Uint8Array(data.buffer);
+        var len = bytes.byteLength;
+        for (var i = 0; i < len; i++) {
+          binary += String.fromCharCode( bytes[ i ] );
+        }
+        var base64String = btoa(binary);
+
         img.onload = function () {
         context.drawImage(this, 0, 0, canvas.width, canvas.height);
         };

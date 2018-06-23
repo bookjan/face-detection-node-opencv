@@ -6,9 +6,6 @@ const ngrok = require('ngrok');
 
 const httpPort = 8080;
 
-//random public URL created by ngrok, default is localhost
-let ngrokURL = 'http://localhost'; 
-
 // app parameters
 const app = express();
 app.set('port', httpPort);
@@ -17,6 +14,9 @@ app.use(morgan('dev'));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+//random public URL created by ngrok, default is localhost
+let ngrokURL = `http://localhost:${app.get('port')}`;
 
 // serve index
 app.get('/', function (req, res) {
