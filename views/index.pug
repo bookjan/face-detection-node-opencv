@@ -21,32 +21,24 @@ html
       canvas#canvas-video(width='320', height='240')
     
     block scripts
-      script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js")
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js')
+      script(src='/base64ArrayBuffer.js')
       script(type='text/javascript').
         // MODIFY THIS TO THE APPROPRIATE URL IF IT IS NOT BEING RUN LOCALLY
         var socket = io.connect('!{url}');
         var canvas = document.getElementById('canvas-video');
         var context = canvas.getContext('2d');
         var img = new Image();
+
         // show loading notice
         context.fillStyle = '#333';
         context.fillText('Loading...', canvas.width/2-30, canvas.height/3);
-        socket.on('frame', function (data) {
-        
-        // Reference1: http://stackoverflow.com/questions/24107378/socket-io-began-to-support-binary-stream-from-1-0-is-there-a-complete-example-e/24124966#24124966
-        // Reference2: https://gist.github.com/jonleighton/958841
-        // Reference3: https://stackoverflow.com/questions/9267899/arraybuffer-to-base64-encoded-string/9458996#9458996
-        
-        var binary = '';
-        var bytes = new Uint8Array(data.buffer);
-        var bytesLength = bytes.byteLength;
-        for (var i = 0; i < bytesLength; i++) {
-          binary += String.fromCharCode( bytes[ i ] );
-        }
-        var base64String = btoa(binary);
 
+        // socket listener
+        socket.on('frame', function (data) {
         img.onload = function () {
         context.drawImage(this, 0, 0, canvas.width, canvas.height);
         };
-        img.src = 'data:image/png;base64,' + base64String;
+
+        img.src = base64ArrayBuffer(data.buffer);
         });

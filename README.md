@@ -25,3 +25,8 @@ Click [here](http://youtu.be/v2SY0naPBFw) to see it in action.
 * To run the demo, open a browser and go to `ngrokURL`
 
 The app should be up and running!
+
+## References
+* http://stackoverflow.com/questions/24107378/socket-io-began-to-support-binary-stream-from-1-0-is-there-a-complete-example-e/24124966#24124966Ｖ
+* https://gist.github.com/jonleighton/958841
+* https://stackoverflow.com/questions/9267899/arraybuffer-to-base64-encoded-string/9458996#9458996ＶＶ

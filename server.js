@@ -10,6 +10,7 @@ const httpPort = 8080;
 const app = express();
 app.set('port', httpPort);
 app.use(morgan('dev'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
